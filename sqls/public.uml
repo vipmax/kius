@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>93d40b6c-a149-4e0a-85c6-8581c534ef53.schema:floor_coverings.public</OriginalElement>
+  <nodes>
+    <node x="54.5" y="139.0">93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.floor_coverings</node>
+    <node x="63.999999999999986" y="298.0">93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.products</node>
+    <node x="64.49999999999999" y="0.0">93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.units</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.floor_coverings" target="93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.floor_coverings">
+      <point x="-35.0" y="54.5" />
+      <point x="89.5" y="268.0" />
+      <point x="34.5" y="268.0" />
+      <point x="34.5" y="193.5" />
+      <point x="-70.0" y="-0.0" />
+    </edge>
+    <edge source="93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.floor_coverings" target="93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.units">
+      <point x="-1.4210854715202004E-14" y="-54.5" />
+      <point x="0.0" y="44.5" />
+    </edge>
+    <edge source="93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.products" target="93d40b6c-a149-4e0a-85c6-8581c534ef53.table:floor_coverings.public.floor_coverings">
+      <point x="0.0" y="-54.5" />
+      <point x="34.999999999999986" y="54.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="127.5" y="203.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

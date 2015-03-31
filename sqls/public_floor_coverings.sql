@@ -1,0 +1,12 @@
+INSERT INTO public.product_types VALUES (2, 'напольные покрытия', null, 1, 1);
+INSERT INTO public.product_types VALUES (3, 'ламинат', 3, 2, 1);
+INSERT INTO public.product_types VALUES (6, 'плинтусы', 3, 2, 1);
+INSERT INTO public.product_types VALUES (7, 'ламинат 31 класс', 3, 3, 1);
+INSERT INTO public.product_types VALUES (8, 'ламинат 32 класс', 3, 3, 1);
+INSERT INTO public.product_types VALUES (9, 'ламинат 33 класс', 3, 3, 1);
+INSERT INTO public.product_types VALUES (10, 'линолеум бытовой', 1, 4, 1);
+INSERT INTO public.product_types VALUES (11, 'плинтусы с кк и мягким краем', 3, 6, 1);
+INSERT INTO public.product_types VALUES (12, 'порожки', 3, 2, 1);
+INSERT INTO public.product_types VALUES (5, 'паркет', 1, 2, 1);
+INSERT INTO public.product_types VALUES (4, 'линолеум', 1, 2, 4);
+INSERT INTO public.product_types VALUES (1, 'изделие', null, 1, null);

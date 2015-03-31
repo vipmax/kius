@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="284252685">
+    <data-source source="LOCAL" name="PostgreSQL - floor_coverings@localhost" uuid="93d40b6c-a149-4e0a-85c6-8581c534ef53">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/floor_coverings</jdbc-url>
+      <user-name>maksim_petrov</user-name>
+      <user-password>df9bdf98df99</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
