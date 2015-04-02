@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/sqls/sqls.iml" filepath="$PROJECT_DIR$/sqls/sqls.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sqls/sqls.iml" filepath="$PROJECT_DIR$/sqls/sqls.iml" />
     </modules>
   </component>
 </project>
