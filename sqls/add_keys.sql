@@ -12,6 +12,8 @@ ALTER TABLE parameter_types ADD PRIMARY KEY (id);
 
 -- fkeys
 
+ALTER TABLE products ADD FOREIGN KEY (product_type_id) REFERENCES product_types (id) ON DELETE CASCADE ON UPDATE CASCADE;
+
 ALTER TABLE product_types ADD FOREIGN KEY (unit_id) REFERENCES units (id) on delete cascade on update cascade;
 ALTER TABLE product_types ADD FOREIGN KEY (parent_id) REFERENCES product_types (id) on delete cascade on update cascade;
 
