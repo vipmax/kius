@@ -81,7 +81,7 @@ $$ LANGUAGE plpgsql;
 -- отбор параметров по id  класса (product_type_id)
 
 CREATE OR REPLACE FUNCTION select_parameters_by_product_id(_product_id INTEGER)
-  RETURNS TABLE(id INTEGER, name TEXT, description TEXT, unit_id INTEGER, enum_id INTEGER, parameter_type_id INTEGER) AS
+  RETURNS TABLE(id INTEGER, name TEXT, description TEXT, unit_id INTEGER, unit_val INTEGER, enum_id INTEGER, enum_val_id INTEGER, parameter_type_id INTEGER) AS
   $$
   BEGIN
     RETURN QUERY
@@ -90,10 +90,12 @@ CREATE OR REPLACE FUNCTION select_parameters_by_product_id(_product_id INTEGER)
       p.name,
       p.description,
       p.unit_id,
+      m.unit_val,
       p.enum_id,
+      m.enum_val_id,
       p.parameter_type_id
     FROM product_parameters_mapping m
-    JOIN parameters p ON p.id = m.parameter_id
+      JOIN parameters p ON p.id = m.parameter_id
     WHERE m.product_id = _product_id;
   END;
   $$ LANGUAGE plpgsql;
@@ -101,8 +103,8 @@ CREATE OR REPLACE FUNCTION select_parameters_by_product_id(_product_id INTEGER)
 
 -- вывод списка изделий заданного класса с параметрами;  
 CREATE OR REPLACE FUNCTION select_products_with_parameters_by_product_type(_product_id INTEGER)
-  RETURNS TABLE(product_id INTEGER, product_name TEXT, product_code INTEGER,
-  parameter_id INTEGER, parameter_name TEXT, parameter_description TEXT, parameter_unit_id INTEGER) AS
+  RETURNS TABLE(product_id INTEGER, product_name TEXT, product_code INTEGER, parameter_id INTEGER, parameter_name TEXT, parameter_description TEXT,
+  parameter_unit_id INTEGER,parameter_unit_value INTEGER, parameter_enum_id INTEGER, parameter_enum_id_value INTEGER, parameter_type INTEGER) AS
   $$
   BEGIN
     RETURN QUERY
@@ -110,13 +112,15 @@ CREATE OR REPLACE FUNCTION select_products_with_parameters_by_product_type(_prod
       p.id,
       p.name,
       p.code,
-      ps.id,
-      ps.name,
-      ps.description,
-      ps.unit_id
+      pr.id,
+      pr.name,
+      pr.description,
+      pr.unit_id, m.unit_val,
+      pr.enum_id, m.enum_val_id,
+      pr.parameter_type_id
     FROM products p
-    FULL JOIN product_parameters_mapping m ON m.product_id = p.id
-    FULL JOIN parameters ps ON ps.id = m.parameter_id
+      FULL JOIN product_parameters_mapping m ON m.product_id = p.id
+      FULL JOIN parameters pr ON pr.id = m.parameter_id
     WHERE p.product_id = _product_id;
   END;
   $$ LANGUAGE plpgsql;

@@ -2409,6 +2409,7 @@
       <foreign-key name="product_types_unit_id_fkey" columns="unit_id" ref-table="units" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="product_types_parent_id_fkey" table="product_types" schema="public" catalog="floor_coverings" columns="parent_id"/>
       <exported-key name="product_types_parameters_mapping_product_type_id_fkey" table="product_types_parameters_mapping" schema="public" catalog="floor_coverings" columns="product_type_id"/>
+      <exported-key name="products_product_type_id_fkey" table="products" schema="public" catalog="floor_coverings" columns="product_type_id"/>
       <index name="product_types_name_key" unique="true" columns="name"/>
     </table>
     <table name="product_types_id_seq" schema="public" catalog="floor_coverings" type="SEQUENCE">
@@ -2438,6 +2439,7 @@
       <column name="code" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="product_type_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="products_pkey" columns="id"/>
+      <foreign-key name="products_product_type_id_fkey" columns="product_type_id" ref-table="product_types" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="products_parameters_mapping_product_id_fkey" table="products_parameters_mapping" schema="public" catalog="floor_coverings" columns="product_id"/>
       <index name="products_code_key" unique="true" columns="code"/>
       <index name="products_name_key" unique="true" columns="name"/>
