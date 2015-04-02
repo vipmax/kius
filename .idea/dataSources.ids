@@ -2331,7 +2331,8 @@
       <column name="enum_val_name" sqlType="varchar" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="enum_val_order" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="enum_values_pkey" columns="enum_val_id"/>
-      <foreign-key name="enum_values_enum_id_fkey" columns="enum_id" ref-table="enums" ref-schema="public" ref-catalog="" ref-columns="enum_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="enum_values_enum_id_fkey" columns="enum_id" ref-table="enums" ref-schema="public" ref-catalog="" ref-columns="enum_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="products_parameters_mapping_enum_val_id_fkey" table="products_parameters_mapping" schema="public" catalog="floor_coverings" columns="enum_val_id"/>
     </table>
     <table name="enum_values_enum_val_id_seq" schema="public" catalog="floor_coverings" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
@@ -2351,7 +2352,6 @@
       <primary-key name="enums_pkey" columns="enum_id"/>
       <exported-key name="enum_values_enum_id_fkey" table="enum_values" schema="public" catalog="floor_coverings" columns="enum_id"/>
       <exported-key name="parameters_enum_id_fkey" table="parameters" schema="public" catalog="floor_coverings" columns="enum_id"/>
-      <exported-key name="parameters_enum_id_fkey1" table="parameters" schema="public" catalog="floor_coverings" columns="enum_id"/>
     </table>
     <table name="enums_enum_id_seq" schema="public" catalog="floor_coverings" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
@@ -2365,16 +2365,24 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
+    <table name="parameter_types" schema="public" catalog="floor_coverings" type="TABLE">
+      <column name="id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="parameter_types_pkey" columns="id"/>
+      <exported-key name="parameters_parameter_type_id_fkey" table="parameters" schema="public" catalog="floor_coverings" columns="parameter_type_id"/>
+      <index name="parameter_types_id_key" unique="true" columns="id"/>
+    </table>
     <table name="parameters" schema="public" catalog="floor_coverings" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncGFyYW1ldGVyc19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
       <column name="name" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="description" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="unit_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="enum_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="parameter_type_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="parameters_pkey" columns="id"/>
-      <foreign-key name="parameters_enum_id_fkey" columns="enum_id" ref-table="enums" ref-schema="public" ref-catalog="" ref-columns="enum_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="parameters_enum_id_fkey1" columns="enum_id" ref-table="enums" ref-schema="public" ref-catalog="" ref-columns="enum_id" update-rule="3" delete-rule="0" deferrability="2"/>
-      <foreign-key name="parameters_unit_id_fkey" columns="unit_id" ref-table="units" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="parameters_enum_id_fkey" columns="enum_id" ref-table="enums" ref-schema="public" ref-catalog="" ref-columns="enum_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="parameters_parameter_type_id_fkey" columns="parameter_type_id" ref-table="parameter_types" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="parameters_unit_id_fkey" columns="unit_id" ref-table="units" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="product_types_parameters_mapping_parameter_id_fkey" table="product_types_parameters_mapping" schema="public" catalog="floor_coverings" columns="parameter_id"/>
       <exported-key name="products_parameters_mapping_parameter_id_fkey" table="products_parameters_mapping" schema="public" catalog="floor_coverings" columns="parameter_id"/>
     </table>
@@ -2397,10 +2405,11 @@
       <column name="parent_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="popularity_value" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="product_types_pkey" columns="id"/>
-      <foreign-key name="product_types_parent_id_fkey" columns="parent_id" ref-table="product_types" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="product_types_unit_id_fkey" columns="unit_id" ref-table="units" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="product_types_parent_id_fkey" columns="parent_id" ref-table="product_types" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="product_types_unit_id_fkey" columns="unit_id" ref-table="units" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="product_types_parent_id_fkey" table="product_types" schema="public" catalog="floor_coverings" columns="parent_id"/>
-      <index name="product_type_name_key" unique="true" columns="name"/>
+      <exported-key name="product_types_parameters_mapping_product_type_id_fkey" table="product_types_parameters_mapping" schema="public" catalog="floor_coverings" columns="product_type_id"/>
+      <index name="product_types_name_key" unique="true" columns="name"/>
     </table>
     <table name="product_types_id_seq" schema="public" catalog="floor_coverings" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
@@ -2415,9 +2424,13 @@
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="product_types_parameters_mapping" schema="public" catalog="floor_coverings" type="TABLE">
-      <column name="product_type_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="parameter_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="product_type_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="parameter_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="max_value" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="min_value" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="product_types_parameters_mapping_pkey" columns="product_type_id,parameter_id"/>
       <foreign-key name="product_types_parameters_mapping_parameter_id_fkey" columns="parameter_id" ref-table="parameters" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="product_types_parameters_mapping_product_type_id_fkey" columns="product_type_id" ref-table="product_types" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
     </table>
     <table name="products" schema="public" catalog="floor_coverings" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncHJvZHVjdHNfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
@@ -2426,8 +2439,8 @@
       <column name="product_type_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="products_pkey" columns="id"/>
       <exported-key name="products_parameters_mapping_product_id_fkey" table="products_parameters_mapping" schema="public" catalog="floor_coverings" columns="product_id"/>
-      <index name="code_key" unique="true" columns="code"/>
-      <index name="name_product_key" unique="true" columns="name"/>
+      <index name="products_code_key" unique="true" columns="code"/>
+      <index name="products_name_key" unique="true" columns="name"/>
     </table>
     <table name="products_id_seq" schema="public" catalog="floor_coverings" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
@@ -2442,10 +2455,14 @@
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="products_parameters_mapping" schema="public" catalog="floor_coverings" type="TABLE">
-      <column name="product_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="parameter_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <foreign-key name="products_parameters_mapping_parameter_id_fkey" columns="parameter_id" ref-table="parameters" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="products_parameters_mapping_product_id_fkey" columns="product_id" ref-table="products" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <column name="product_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="parameter_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="enum_val_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="unit_val" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="products_parameters_mapping_pkey" columns="product_id,parameter_id"/>
+      <foreign-key name="products_parameters_mapping_enum_val_id_fkey" columns="enum_val_id" ref-table="enum_values" ref-schema="public" ref-catalog="" ref-columns="enum_val_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="products_parameters_mapping_parameter_id_fkey" columns="parameter_id" ref-table="parameters" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="products_parameters_mapping_product_id_fkey" columns="product_id" ref-table="products" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
     </table>
     <table name="units" schema="public" catalog="floor_coverings" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgndW5pdHNfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
@@ -2454,7 +2471,7 @@
       <primary-key name="units_pkey" columns="id"/>
       <exported-key name="parameters_unit_id_fkey" table="parameters" schema="public" catalog="floor_coverings" columns="unit_id"/>
       <exported-key name="product_types_unit_id_fkey" table="product_types" schema="public" catalog="floor_coverings" columns="unit_id"/>
-      <index name="name_key" unique="true" columns="name"/>
+      <index name="units_name_key" unique="true" columns="name"/>
     </table>
     <table name="units_id_seq" schema="public" catalog="floor_coverings" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
@@ -18967,138 +18984,6 @@
         <parameter name="$1" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
         <parameter name="$2" sqlType="xml" precision="0" scale="0" nullable="true" jdbcType="2009" type="1" index="2"/>
         <parameter name="returnValue" sqlType="bool" precision="0" scale="0" nullable="true" jdbcType="-7" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="add_enum" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="$1" sqlType="varchar" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="add_enum_val" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="$1" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="$2" sqlType="varchar" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
-        <parameter name="$3" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="3"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="add_parameter" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="_parameter_name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="_description" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
-        <parameter name="_unit_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="3"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-      <prototype>
-        <parameter name="_parameter_name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="_description" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
-        <parameter name="_unit_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="3"/>
-        <parameter name="_enum_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="4"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="add_product_types_parameters_mapping" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="_new_product_type_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="_new_parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="change_parameter" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="_parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="_new_parameter_name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
-        <parameter name="_new_description" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
-        <parameter name="_new_unit_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="4"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-      <prototype>
-        <parameter name="_parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="_new_parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
-        <parameter name="_new_parameter_name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
-        <parameter name="_new_description" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="4"/>
-        <parameter name="_new_unit_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="5"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-      <prototype>
-        <parameter name="_parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="_new_parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
-        <parameter name="_new_parameter_name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
-        <parameter name="_new_description" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="4"/>
-        <parameter name="_new_unit_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="5"/>
-        <parameter name="_new_enum_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="6"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="del_enum" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="$1" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="del_enum_val" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="$1" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="delete_parameter" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="_parameter_id" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-      <prototype>
-        <parameter name="_parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="delete_product_types_parameters_mapping" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="_product_type_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="down_enum_val_order" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="$1" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="get_enum_list" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
-        <parameter name="name" sqlType="varchar" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
-        <parameter name="e_value" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="4"/>
-        <parameter name="e_order" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="5"/>
-      </prototype>
-    </procedure>
-    <procedure name="select_parameters_by_product_id" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="_product_type_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
-        <parameter name="name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
-        <parameter name="description" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="4"/>
-        <parameter name="unit_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="5"/>
-      </prototype>
-    </procedure>
-    <procedure name="select_products_with_parameters_by_product_type" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="_product_type_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="product_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
-        <parameter name="product_name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
-        <parameter name="product_code" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="4"/>
-        <parameter name="parameter_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="5"/>
-        <parameter name="parameter_name" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="6"/>
-        <parameter name="parameter_description" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="1" index="7"/>
-        <parameter name="parameter_unit_id" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="8"/>
-      </prototype>
-    </procedure>
-    <procedure name="up_enum_val_order" schema="public" catalog="floor_coverings" type="2">
-      <prototype>
-        <parameter name="$1" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
-        <parameter name="returnValue" sqlType="void" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>
       </prototype>
     </procedure>
   </data-source>

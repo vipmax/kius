@@ -46,41 +46,42 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- добавление соответствия типа продукта и его параметра
-CREATE OR REPLACE FUNCTION add_product_types_parameters_mapping(_new_product_type_id INTEGER, _new_parameter_id INTEGER,_enum_val )
+CREATE OR REPLACE FUNCTION add_product_parameters_mapping(_new_product_id INTEGER, _new_parameter_id INTEGER,_enum_val_id INTEGER, _unit_val INTEGER)
   RETURNS VOID AS $$
 BEGIN
   INSERT INTO product_parameters_mapping
-  (product_type_id, parameter_id)
-  VALUES (_new_product_type_id, _new_parameter_id,);
+  (product_id, parameter_id, enum_val_id, unit_val)
+  VALUES (_new_product_id, _new_parameter_id, _enum_val_id, _unit_val);
 END;
 $$ LANGUAGE plpgsql;
 
 -- удаление соответствия типа продукта и его параметра
-CREATE OR REPLACE FUNCTION delete_product_types_parameters_mapping(_product_type_id INTEGER, _parameter_id INTEGER)
+CREATE OR REPLACE FUNCTION delete_product_parameters_mapping(_product_id INTEGER, _parameter_id INTEGER)
   RETURNS VOID AS $$
 BEGIN
   DELETE
   FROM product_types_parameters_mapping
-  WHERE product_type_id = _product_type_id AND parameter_id = _parameter_id;
+  WHERE product_id = _product_id AND parameter_id = _parameter_id;
 END;
 $$ LANGUAGE plpgsql;
 
 
 -- изменение соответствия типа продукта и его параметра
-CREATE OR REPLACE FUNCTION change_product_types_parameters_mapping
-  (_product_type_id INTEGER, _new_parameter_id INTEGER)
+CREATE OR REPLACE FUNCTION change_product_parameters_mapping
+  (_product_id INTEGER, _new_parameter_id INTEGER)
   RETURNS VOID AS $$
 BEGIN
-  UPDATE product_types_parameters_mapping
+  UPDATE product_parameters_mapping
   SET parameter_id = _new_parameter_id
-  WHERE id = _parameter_id;
+  WHERE id = _product_id;
 END;
 $$ LANGUAGE plpgsql;
 
 
 -- отбор параметров по id  класса (product_type_id)
-CREATE OR REPLACE FUNCTION select_parameters_by_product_id(_product_type_id INTEGER)
-  RETURNS TABLE(id INTEGER, name TEXT, description TEXT, unit_id INTEGER) AS
+
+CREATE OR REPLACE FUNCTION select_parameters_by_product_id(_product_id INTEGER)
+  RETURNS TABLE(id INTEGER, name TEXT, description TEXT, unit_id INTEGER, enum_id INTEGER, parameter_type_id INTEGER) AS
   $$
   BEGIN
     RETURN QUERY
@@ -88,16 +89,18 @@ CREATE OR REPLACE FUNCTION select_parameters_by_product_id(_product_type_id INTE
       p.id,
       p.name,
       p.description,
-      p.unit_id
-    FROM product_types_parameters_mapping ptpm
-      JOIN parameters p ON p.id = ptpm.parameter_id
-    WHERE ptpm.product_type_id = _product_type_id;
+      p.unit_id,
+      p.enum_id,
+      p.parameter_type_id
+    FROM product_parameters_mapping m
+    JOIN parameters p ON p.id = m.parameter_id
+    WHERE m.product_id = _product_id;
   END;
   $$ LANGUAGE plpgsql;
 
 
 -- вывод списка изделий заданного класса с параметрами;  
-CREATE OR REPLACE FUNCTION select_products_with_parameters_by_product_type(_product_type_id INTEGER)
+CREATE OR REPLACE FUNCTION select_products_with_parameters_by_product_type(_product_id INTEGER)
   RETURNS TABLE(product_id INTEGER, product_name TEXT, product_code INTEGER,
   parameter_id INTEGER, parameter_name TEXT, parameter_description TEXT, parameter_unit_id INTEGER) AS
   $$
@@ -112,8 +115,8 @@ CREATE OR REPLACE FUNCTION select_products_with_parameters_by_product_type(_prod
       ps.description,
       ps.unit_id
     FROM products p
-      FULL JOIN product_types_parameters_mapping m ON m.product_type_id = p.product_type_id
-      FULL JOIN parameters ps ON ps.id = m.parameter_id
-    WHERE p.product_type_id = _product_type_id;
+    FULL JOIN product_parameters_mapping m ON m.product_id = p.id
+    FULL JOIN parameters ps ON ps.id = m.parameter_id
+    WHERE p.product_id = _product_id;
   END;
   $$ LANGUAGE plpgsql;
